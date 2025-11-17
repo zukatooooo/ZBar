@@ -1,0 +1,64 @@
+@import "/home/zukaabsandze/.cache/wal/colors";
+
+@keyframes lowBatteryPulse {
+  0%   { color: $color2;}
+  50%  { color: red;    }
+  100% { color: $color2;}
+}
+
+@keyframes medBatteryPulse {
+  0%   { color: $color2; }
+  50%  { color: #ffcc00; }
+  100% { color: $color2; }
+}
+
+.statusBar {
+  color: $color2;
+  font-size: 20px;
+  font-family: "JetBrainsMono Nerd Font";
+  font-weight: bold;
+  border-right: 2px solid $color2;
+}
+
+.layout-box {
+  background-color: $color0;
+}
+
+.top {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.center {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.bottom {
+  padding-top: 10px;
+  padding-bottom: 10px
+}
+
+.clock-box {
+    font-size: 23px;
+}
+
+.bat-box {
+  font-size: 25px;
+}
+
+.low-battery {
+  animation: lowBatteryPulse 1s infinite;
+  font-size: 25px;
+}
+
+.med-battery {
+  animation: medBatteryPulse 1s infinite;
+  font-size: 25px;
+}
+
+.charging {
+  color: #23ff23;
+  font-size: 25px;
+}
+

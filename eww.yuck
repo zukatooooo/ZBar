@@ -1,0 +1,56 @@
+(defwidget clock []
+	(box :class "clock-box" :orientation "vertical"
+		(label :text {formattime(EWW_TIME, "%H")})
+		(label :text {formattime(EWW_TIME, "%M")})
+	)
+)
+
+(defwidget battery [battery status one two three four five six seven eight nine ten]
+	(box :orientation "vertical" 
+		:class {status == "Charging" ? "charging" :
+			battery <= 15 ? "low-battery" :
+      			battery <= 30 ? "med-battery" :"bat-box"}
+    		
+		(label :text {battery <= 10 ? one :
+			      battery <= 20 ? two :
+			      battery <= 30 ? three :
+			      battery <= 40 ? four :
+			      battery <= 50 ? five :
+			      battery <= 60 ? six :
+			      battery <= 70 ? seven:
+			      battery <= 80 ? eight:
+			      battery <= 90 ? nine : ten}
+			:tooltip {EWW_BATTERY.BAT1.capacity + "%"}
+		)
+
+	)
+)
+
+
+(defwidget statusBarLayout []
+	(box :class "layout-box" :space-evenly true :orientation "vertical" :vexpand true
+		(box :class "top" :orientation "vertical" :vexpand true :space-evenly false :valign "start"
+			"1"
+		)		
+		(box :class "center" :orientation "vertical" :vexpand true :space-evenly false :valign "center"
+			(clock)
+		)
+		(box :class "bottom" :orientation "vertical" :vexpand true :space-evenly false :valign "end"
+			(battery :status {EWW_BATTERY.BAT1.status}
+                		 :battery {EWW_BATTERY.BAT1.capacity}
+                		 :one "󰁺" :two "󰁻" :three "󰁼" :four "󰁽" :five "󰁾" :six "󰁿" :seven "󰂀" :eight "󰂁" :nine "󰂂" :ten "󰁹")
+		)
+	)
+)
+
+(defwindow statusBar
+	:class "statusBar"
+	:monitor 0
+	:geometry (geometry :x "0px" :y "0px" :width "45px" :height "100%" :anchor "left center")
+
+	:stacking "bottom"
+	:exclusive true
+	:focusable "ondemand"
+
+	(statusBarLayout)
+)
