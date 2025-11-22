@@ -1,9 +1,14 @@
+; Clock
+
 (defwidget clock []
 	(box :class "clock-box" :orientation "vertical"
 		(label :text {formattime(EWW_TIME, "%H")})
 		(label :text {formattime(EWW_TIME, "%M")})
 	)
 )
+
+
+; Battery
 
 (defwidget battery [battery status one two three four five six seven eight nine ten]
 	(box :orientation "vertical" 
@@ -27,6 +32,40 @@
 )
 
 
+; Volume
+
+(deflisten status "
+	while true; do
+  		if wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q 'MUTED'; then
+    			echo Muted
+ 		else
+    			echo Normal
+  		fi
+  		sleep 0.2
+	done
+")
+
+(deflisten volume_percent "
+	while true; do
+		raw=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
+  		vol=$(echo $raw | awk '{print int($2*100)}')
+  		echo $vol
+  		sleep 0.2
+	done
+")
+
+(defwidget volume [volume status low medium high muted]
+	(box :orientation "vertical" :class {status == "Muted" ? "vol-muted" : "vol"}
+		(label :text {status == "Muted" ? muted:
+			      volume <= 30 ? low :
+			      volume <= 60 ? medium: high}
+		)
+	)
+)
+
+
+; Bar
+
 (defwidget statusBarLayout []
 	(box :class "layout-box" :space-evenly true :orientation "vertical" :vexpand true
 		(box :class "top" :orientation "vertical" :vexpand true :space-evenly false :valign "start"
@@ -36,6 +75,8 @@
 			(clock)
 		)
 		(box :class "bottom" :orientation "vertical" :vexpand true :space-evenly false :valign "end"
+			(systray :class "tray" :orientation "vertical" :icon-size 25 :spacing 6 :space-evenly false :prepend-new true)
+			(volume :volume volume_percent :status status :low "󰕿" :medium "󰖀" :high "󰕾" :muted "󰝟")
 			(battery :status {EWW_BATTERY.BAT1.status}
                 		 :battery {EWW_BATTERY.BAT1.capacity}
                 		 :one "󰁺" :two "󰁻" :three "󰁼" :four "󰁽" :five "󰁾" :six "󰁿" :seven "󰂀" :eight "󰂁" :nine "󰂂" :ten "󰁹")
