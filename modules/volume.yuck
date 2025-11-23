@@ -1,0 +1,30 @@
+; Volume
+
+(deflisten status "
+	while true; do
+  		if wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q 'MUTED'; then
+    			echo Muted
+ 		else
+    			echo Normal
+  		fi
+  		sleep 0.2
+	done
+")
+
+(deflisten volume_percent "
+	while true; do
+		raw=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
+  		vol=$(echo $raw | awk '{print int($2*100)}')
+  		echo $vol
+  		sleep 0.2
+	done
+")
+
+(defwidget volume [volume status low medium high muted]
+	(box :orientation "vertical" :class {status == "Muted" ? "vol-muted" : "vol"}
+		(label :text {status == "Muted" ? muted:
+			      volume <= 30 ? low :
+			      volume <= 60 ? medium: high}
+		)
+	)
+)

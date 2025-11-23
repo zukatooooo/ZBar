@@ -1,0 +1,14 @@
+; Clock
+
+(defwidget clock_v []
+	(box :class "clock-box" :orientation "vertical"
+		(label :text {formattime(EWW_TIME, "%H")})
+		(label :text {formattime(EWW_TIME, "%M")})
+	)
+)
+
+(defwidget clock_h []
+	(box :class "clock-box" :orientation "vertical"
+		(label :text {formattime(EWW_TIME, "%H") + ":" + formattime(EWW_TIME, "%M")})
+    )
+)

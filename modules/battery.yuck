@@ -1,0 +1,23 @@
+
+; Battery
+
+(defwidget battery [battery status one two three four five six seven eight nine ten]
+	(box :orientation "vertical" 
+		:class {status == "Charging" ? "charging" :
+			battery <= 15 ? "low-battery" :
+      			battery <= 30 ? "med-battery" :"bat-box"}
+    		
+		(label :text {battery <= 10 ? one :
+			      battery <= 20 ? two :
+			      battery <= 30 ? three :
+			      battery <= 40 ? four :
+			      battery <= 50 ? five :
+			      battery <= 60 ? six :
+			      battery <= 70 ? seven:
+			      battery <= 80 ? eight:
+			      battery <= 90 ? nine : ten}
+			:tooltip {EWW_BATTERY.BAT1.capacity + "%"}
+		)
+
+	)
+)

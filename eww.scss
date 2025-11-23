@@ -17,7 +17,6 @@
   font-size: 20px;
   font-family: "JetBrainsMono Nerd Font";
   font-weight: bold;
-  border-right: 2px solid $color2;
 }
 
 .layout-box {
@@ -25,50 +24,53 @@
 }
 
 .top {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 5px
 }
 
 .center {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 5px;
 }
 
 .bottom {
-  padding-top: 10px;
-  padding-bottom: 10px
+  padding: 5px;
 }
 
 .clock-box {
-    font-size: 23px;
+    font-size: 20px;
 }
 
 .bat-box {
   font-size: 25px;
+  margin: -1 6 -1 6;
 }
 
 .low-battery {
   animation: lowBatteryPulse 1s infinite;
   font-size: 25px;
+  margin: -1 6 -1 6;
 }
 
 .med-battery {
   animation: medBatteryPulse 1s infinite;
   font-size: 25px;
+  margin: -1 6 -1 6;
 }
 
 .charging {
   color: #23ff23;
   font-size: 25px;
+  margin: -1 6 -1 6;
 }
 
 /* Volume */
 .vol {
   font-size: 25px;
+  margin: -1 6 -1 6;
 }
 
 .vol-muted {
   color: #ff0000;
   font-size: 25px;
+  margin: -1 6 -1 6;
 }
 
